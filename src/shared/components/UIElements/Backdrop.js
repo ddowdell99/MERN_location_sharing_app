@@ -3,8 +3,8 @@ import { createPortal } from "react-dom";
 
 import "./Backdrop.css";
 
-const Backdrop = ({ closeDrawer }) => {
-  const content = <div className="backdrop" onClick={closeDrawer}></div>;
+const Backdrop = ({ onClick }) => {
+  const content = <div className="backdrop" onClick={onClick}></div>;
 
   return createPortal(content, document.getElementById("backdrop-hook"));
 };
