@@ -8,6 +8,7 @@ import {
 
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Users from "./user/pages/Users";
+import UserPlaces from "./places/pages/UserPlaces";
 import NewPlace from "./places/pages/NewPlace";
 
 const App = () => {
@@ -16,16 +17,19 @@ const App = () => {
       <MainNavigation />
       {/* Switch works by ensuring that if the url matches on of the route paths, then nothing else will be read */}
       <main>
-      <Switch>
-        {/* Putting exact makes sure that whatever is inside of route will only be rendered with the EXACT path */}
-        <Route path="/" exact>
-          <Users />
-        </Route>
-        <Route path="/places/new" exact>
-          <NewPlace />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
+        <Switch>
+          {/* Putting exact makes sure that whatever is inside of route will only be rendered with the EXACT path */}
+          <Route path="/" exact>
+            <Users />
+          </Route>
+          <Route path="/:userID/places" exact>
+            <UserPlaces />
+          </Route>
+          <Route path="/places/new" exact>
+            <NewPlace />
+          </Route>
+          <Redirect to="/" />
+        </Switch>
       </main>
     </Router>
   );
