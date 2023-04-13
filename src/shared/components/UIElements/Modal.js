@@ -5,57 +5,43 @@ import { CSSTransition } from "react-transition-group";
 import Backdrop from "./Backdrop";
 import "./Modal.css";
 
-const ModalOverlay = ({
-  className,
-  style,
-  headerClass,
-  header,
-  onSubmit,
-  contentClass,
-  children,
-  footerClass,
-  footer,
-}) => {
+const ModalOverlay = ( props ) => {
   const content = (
     // adding the literal here gives us the chance to include other classNames/css styling depending on where we are using modal
-    <div className={`modal ${className}`} style={style}>
-      <header className={`modal__header ${headerClass}`}>
-        <h2>{header}</h2>
+    <div className={`modal ${props.className}`} style={props.style}>
+      <header className={`modal__header ${props.headerClass}`}>
+        <h2>{props.header}</h2>
       </header>
-      <form onSubmit={onSubmit ? onSubmit : (event) => event.preventDefault()}>
-        <div className={`modal__content ${contentClass}`}>{children}</div>
-        <footer className={`modal__footer ${footerClass}`}>{footer}</footer>
+      <form
+        onSubmit={
+          props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
+        }
+      >
+        <div className={`modal__content ${props.contentClass}`}>
+          {props.children}
+        </div>
+        <footer className={`modal__footer ${props.footerClass}`}>
+          {props.footer}
+        </footer>
       </form>
     </div>
   );
   return createPortal(content, document.getElementById("modal-hook"));
 };
 
-const Modal = ({
-  onCancel,
-  show,
-  header,
-  contentClass,
-  footerClass,
-  footer,
-}) => {
+const Modal = (props) => {
   return (
     <React.Fragment>
-      {show && <Backdrop onClick={onCancel} />}
+      {props.show && <Backdrop onClick={props.onCancel} />}
       <CSSTransition
-        in={show}
+        in={props.show}
         mountOnEnter
         unmountOnExit
         timeout={200}
         classNames="modal"
       >
         {/* Whatever props are passed to the parent are passed to the child with ..props */}
-        <ModalOverlay
-          header={header}
-          contentClass={contentClass}
-          footerClass={footerClass}
-          footer={footer}
-        />
+        <ModalOverlay {...props} />
       </CSSTransition>
     </React.Fragment>
   );
