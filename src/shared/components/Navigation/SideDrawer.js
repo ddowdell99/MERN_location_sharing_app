@@ -13,7 +13,9 @@ const SideDrawer = ({ children, show, onClick }) => {
       mountOnEnter
       unmountOnExit
     >
-      <aside className="side-drawer" onClick={onClick}>{children}</aside>
+      <aside className="side-drawer" onClick={onClick}>
+        {children}
+      </aside>
     </CSSTransition>
   );
   // Portal are used to render certain content or elements in specific locations on index file

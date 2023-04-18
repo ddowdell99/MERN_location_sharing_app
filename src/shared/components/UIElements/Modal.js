@@ -5,7 +5,7 @@ import { CSSTransition } from "react-transition-group";
 import Backdrop from "./Backdrop";
 import "./Modal.css";
 
-const ModalOverlay = ( props ) => {
+const ModalOverlay = (props) => {
   const content = (
     // adding the literal here gives us the chance to include other classNames/css styling depending on where we are using modal
     <div className={`modal ${props.className}`} style={props.style}>

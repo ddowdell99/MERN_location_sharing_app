@@ -22,11 +22,9 @@ const PlaceItem = ({ image, title, address, description, id, coordinates }) => {
         contentClass="place-item__modal-content"
         footerClass="place-item__modal-actions"
         footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
-        
       >
         <div className="map-container">
-          <h2>Hi</h2>
-          <Map center={coordinates} zoom={16}/>
+          <Map center={coordinates} zoom={16} />
         </div>
       </Modal>
 
