@@ -4,17 +4,17 @@ import { CSSTransition } from "react-transition-group";
 
 import "./SideDrawer.css";
 
-const SideDrawer = ({ children, show, onClick }) => {
+const SideDrawer = (props) => {
   const content = (
     <CSSTransition
-      in={show}
+      in={props.show}
       timeout={200}
       classNames="slide-in-left"
       mountOnEnter
       unmountOnExit
     >
-      <aside className="side-drawer" onClick={onClick}>
-        {children}
+      <aside className="side-drawer" onClick={props.onClick}>
+        {props.children}
       </aside>
     </CSSTransition>
   );
