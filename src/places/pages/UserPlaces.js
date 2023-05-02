@@ -35,8 +35,8 @@ const DUMMY_PLACES = [
 const UserPlaces = () => {
   // useParams is used here to grab the user ID from the dynamic url for seeing specific user's places
   const userID = useParams().userID;
-//   Using .filter to take out all the places that match the creator id
-  const loadedPlaces = DUMMY_PLACES.filter(place => place.creator === userID)
+  //   Using .filter to take out all the places that match the creator id
+  const loadedPlaces = DUMMY_PLACES.filter((place) => place.creator === userID);
   return <PlaceList items={loadedPlaces} />;
 };
 
