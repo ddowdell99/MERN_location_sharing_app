@@ -30,9 +30,9 @@ const Input = (props) => {
   // dispatch is what is used to call useReducer and provides input for the the inputReducer function
   // gave an initial state to the useReducer, just like useState here at the end in {}
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: "",
+    value: props.value || "",
     isTouched: false,
-    isValid: false,
+    isValid: props.valid || false,
   });
 
   const { id, onInput } = props;
