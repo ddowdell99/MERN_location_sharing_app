@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer } from "react";
+import React from "react";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -6,41 +6,12 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validators";
+import { useForm } from "../../shared/hooks/form-hook";
 import "./PlaceForm.css";
 
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "INPUT_CHANGE":
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        // Looking to see if the current inputId is the same as the inputId (action.inputId) we are trying to change
-        if (inputId === action.inputId) {
-          // formIsValid will be set to true as long as formIsValid and action.isValid is true
-          formIsValid = formIsValid && action.isValid;
-          // If not inputId we are looking at is not the input we are trying to change (title or description)
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          // The bracket notation here adds a dynamic assignment where it will be updated based on what the inputId is (either
-          // title or description)
-          [action.inputId]: { value: action.value, isValid: action.isValid },
-        },
-        isValid: formIsValid,
-      };
-
-    default:
-      return state;
-  }
-};
 
 const NewPlace = () => {
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
+  const [formState, inputHandler] = useForm({
       title: {
         value: "",
         isValid: false,
@@ -52,23 +23,10 @@ const NewPlace = () => {
       address: {
         value: "",
         isValid: false,
-      },
-    },
-    isValid: false,
-  });
+      }
+  }, false);
 
-  // useCallback was used here to stop an infinite loop from rerendering this page and then forcing input useEffect to rerender
-  const inputHandler = useCallback(
-    (id, value, isValid) => {
-      dispatch({
-        type: "INPUT_CHANGE",
-        value: value,
-        isValid: isValid,
-        inputId: id,
-      });
-    },
-    [dispatch]
-  );
+  
 
   const placeSubmitHandler = (event) => {
     event.preventDefault();
