@@ -5,6 +5,9 @@ const formReducer = (state, action) => {
     case "INPUT_CHANGE":
       let formIsValid = true;
       for (const inputId in state.inputs) {
+        if (!state.inputs[inputId]) {
+          continue;
+        }
         // Looking to see if the current inputId is the same as the inputId (action.inputId) we are trying to change
         if (inputId === action.inputId) {
           // formIsValid will be set to true as long as formIsValid and action.isValid is true
